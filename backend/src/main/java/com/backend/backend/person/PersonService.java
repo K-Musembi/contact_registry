@@ -84,9 +84,9 @@ public class PersonService {
 
     @Transactional
     public void deleteById(Long Id) {
-        Person person = personRepository.findById(Id)
-                .orElseThrow(() -> new EntityNotFoundException("Person not found"));
-
+        if (personRepository.findById(Id).isEmpty()) {
+            throw new EntityNotFoundException("Person not found");
+        }
         personRepository.deleteById(Id);
     }
 

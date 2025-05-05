@@ -12,6 +12,5 @@ import java.util.List;
 public record CountyResponse(
         Long id,
         String name,
-        int code,
-        List<Person> persons
+        int code
 ) {}

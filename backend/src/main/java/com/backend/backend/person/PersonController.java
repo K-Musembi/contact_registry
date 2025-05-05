@@ -62,7 +62,7 @@ public class PersonController {
             ) {
         PersonResponse responseObject = personService.createPerson(personRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseObject);  // 201
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseObject);
     }
 
     @PutMapping("/{id}")
