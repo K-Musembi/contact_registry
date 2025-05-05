@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Person Report</title>
+    <style>
+        body { font-family: sans-serif; }
+        .label { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Person Details</h1>
+    <hr/>
+        <div><span class="label">ID:</span> <span th:text="${person.id}">123</span></div>
+        <div><span class="label">Full Name:</span> <span th:text="${person.fullName}">John Doe</span></div>
+        <div><span class="label">Email:</span> <span th:text="${person.email}">john.doe@example.com</span></div>
+        <div><span class="label">Phone:</span> <span th:text="${person.phone}">123-456-7890</span></div>
+        <div><span class="label">Gender:</span> <span th:text="${person.gender}">Male</span></div>
+        <div><span class="label">Date of Birth:</span> <span th:text="${person.dateOfBirth}">1990-01-15</span></div>
+        <div><span class="label">County:</span> <span th:text="${person.countyName}">Sample County</span></div>
+</body>
+</html>
