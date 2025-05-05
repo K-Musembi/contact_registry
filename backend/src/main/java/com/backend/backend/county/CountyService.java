@@ -2,11 +2,14 @@ package com.backend.backend.county;
 
 import com.backend.backend.county.dto.CountyRequest;
 import com.backend.backend.county.dto.CountyResponse;
+import com.backend.backend.person.dto.PersonResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Business Logic for County entity
@@ -71,6 +74,14 @@ public class CountyService {
                 .orElseThrow(() -> new EntityNotFoundException("County not found"));
 
         return mapToCountyResponse(county);
+    }
+
+    @Transactional
+    public List<CountyResponse> findAllCounties() {
+        List<County> counties = countyRepository.findAll();
+        return counties.stream()
+                .map(this::mapToCountyResponse)
+                .toList();
     }
 
     @Transactional

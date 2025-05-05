@@ -49,6 +49,13 @@ public class PersonController {
         return ResponseEntity.ok(responseObject);
     }
 
+    @GetMapping("/county/{name}")
+    public ResponseEntity<List<PersonResponse>> getPersonsByCounty(@PathVariable String name) {
+        List<PersonResponse> responseObject = personService.findPersonsByCountyName(name);
+
+        return ResponseEntity.ok(responseObject);
+    }
+
     @GetMapping("/phone/{phone}")
     public ResponseEntity<PersonResponse> getPersonByPhone(@PathVariable String phone) {
         PersonResponse responseObject = personService.findByPhone(phone);

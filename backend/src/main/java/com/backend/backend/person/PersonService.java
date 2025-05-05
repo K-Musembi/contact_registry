@@ -83,6 +83,15 @@ public class PersonService {
     }
 
     @Transactional
+    public List<PersonResponse> findPersonsByCountyName(String name) {
+        List<Person> persons = personRepository.findByCountyName(name);
+
+        return persons.stream()
+                .map(this::mapToPersonResponse)
+                .toList();
+    }
+
+    @Transactional
     public void deleteById(Long Id) {
         if (personRepository.findById(Id).isEmpty()) {
             throw new EntityNotFoundException("Person not found");

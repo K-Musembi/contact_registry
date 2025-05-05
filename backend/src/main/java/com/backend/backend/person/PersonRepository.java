@@ -17,5 +17,5 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     // Custom query methods
     Optional<Person> findByEmail(String email);
     Optional<Person> findByPhone(String phone);
-    List<Person> findAll();
+    List<Person> findByCountyName(String countyName);
 }
