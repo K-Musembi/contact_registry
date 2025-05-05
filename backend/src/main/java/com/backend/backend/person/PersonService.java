@@ -9,7 +9,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -22,11 +26,14 @@ import java.util.List;
 public class PersonService {
     private final PersonRepository personRepository1;
     private final CountyRepository countyRepository;
+    private final TemplateEngine templateEngine;
 
     @Autowired
-    public PersonService(PersonRepository personRepository, CountyRepository countyRepository) {
+    public PersonService(
+            PersonRepository personRepository, CountyRepository countyRepository, TemplateEngine templateEngine) {
         this.countyRepository = countyRepository;
         this.personRepository1 = personRepository;
+        this.templateEngine = templateEngine;
     }
 
     @Transactional
@@ -97,6 +104,29 @@ public class PersonService {
             throw new EntityNotFoundException("Person not found");
         }
         personRepository1.deleteById(Id);
+    }
+
+    @Transactional
+    public byte[] generatePDFReport(Long Id) {
+        Person person = personRepository1.findById(Id)
+                .orElseThrow(() -> new EntityNotFoundException("Person not found"));
+
+        PersonResponse personDetails = mapToPersonResponse(person);
+
+        Context context = new Context();
+        context.setVariable("person", personDetails);
+        String html = templateEngine.process("PersonReport.html", context);
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(html);
+            renderer.layout();
+            renderer.createPDF(outputStream);
+            return outputStream.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException("Error generating PDF report", e);
+        }
+
     }
 
     private Person mapToPerson(Person person, PersonRequest personRequest) {

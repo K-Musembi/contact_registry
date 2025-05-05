@@ -4,7 +4,9 @@ import com.backend.backend.person.dto.PersonRequest;
 import com.backend.backend.person.dto.PersonResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +42,16 @@ public class PersonController {
         PersonResponse responseObject = personService.findPersonById(id);
 
         return ResponseEntity.ok(responseObject);
+    }
+
+    @GetMapping("/pdf-report/{id}")
+    public ResponseEntity<byte[]> generatePDF(@PathVariable Long id) {
+        byte[] pdfObject = personService.generatePDFReport(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report - " + id + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfObject);
     }
 
     @GetMapping("/email/{email}")
