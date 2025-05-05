@@ -1,5 +1,6 @@
 package com.backend.backend.person;
 
+import com.backend.backend.county.County;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +39,7 @@ public class Person {
     @Column(name = "date_of_birth", nullable = false, length = 50)
     private LocalDateTime dateOfBirth;
 
+    // Many persons can belong to one county
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "county_id", nullable = false)
     private County county;
