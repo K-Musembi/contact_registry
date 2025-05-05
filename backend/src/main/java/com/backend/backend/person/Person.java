@@ -24,8 +24,8 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name", nullable = false, length = 50)
-    private String fullname;
+    @Column(name = "fullName", nullable = false, length = 50)
+    private String fullName;
 
     @Column(name = "email", nullable = false, length = 50, unique = true)
     private String email;
@@ -36,11 +36,11 @@ public class Person {
     @Column(name = "gender", nullable = false, length = 50)
     private String gender;
 
-    @Column(name = "date_of_birth", nullable = false, length = 50)
+    @Column(name = "dateOfBirth", nullable = false, length = 50)
     private LocalDateTime dateOfBirth;
 
     // Many persons can belong to one county
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "county_id", nullable = false)
     private County county;
 
