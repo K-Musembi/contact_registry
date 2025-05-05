@@ -10,5 +10,6 @@ public record PersonResponse(
         String email,
         String phone,
         String gender,
-        String dateOfBirth
+        String dateOfBirth,
+        String countyName
 ) {}
