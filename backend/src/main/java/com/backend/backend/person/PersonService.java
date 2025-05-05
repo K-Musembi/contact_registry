@@ -20,18 +20,18 @@ import java.util.List;
  */
 @Service
 public class PersonService {
-    private final PersonRepository personRepository;
+    private final PersonRepository personRepository1;
     private final CountyRepository countyRepository;
 
     @Autowired
     public PersonService(PersonRepository personRepository, CountyRepository countyRepository) {
         this.countyRepository = countyRepository;
-        this.personRepository = personRepository;
+        this.personRepository1 = personRepository;
     }
 
     @Transactional
     public PersonResponse createPerson(PersonRequest personRequest) {
-        if (personRepository.findByEmail(personRequest.email()).isPresent()) {
+        if (personRepository1.findByEmail(personRequest.email()).isPresent()) {
             throw new DataIntegrityViolationException("Email already registered");
         }
 
@@ -42,7 +42,7 @@ public class PersonService {
 
     @Transactional
     public PersonResponse updatePerson(Long Id, PersonRequest personRequest) {
-        Person person = personRepository.findById(Id)
+        Person person = personRepository1.findById(Id)
                 .orElseThrow(() -> new EntityNotFoundException("Person not found"));
 
         Person createdPerson = mapToPerson(person, personRequest);
@@ -51,7 +51,7 @@ public class PersonService {
 
     @Transactional
     public List<PersonResponse> findAllPersons() {
-        List<Person> persons = personRepository.findAll();
+        List<Person> persons = personRepository1.findAll();
 
         return persons.stream()
                 .map(this::mapToPersonResponse)
@@ -60,7 +60,7 @@ public class PersonService {
 
     @Transactional
     public PersonResponse findPersonById(Long Id) {
-        Person person = personRepository.findById(Id)
+        Person person = personRepository1.findById(Id)
                 .orElseThrow(() -> new EntityNotFoundException("Person not found"));
 
         return mapToPersonResponse(person);
@@ -68,7 +68,7 @@ public class PersonService {
 
     @Transactional
     public PersonResponse findPersonByEmail(String email) {
-        Person person = personRepository.findByEmail(email)
+        Person person = personRepository1.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Person not found"));
 
         return mapToPersonResponse(person);
@@ -76,7 +76,7 @@ public class PersonService {
 
     @Transactional
     public PersonResponse findByPhone(String phone) {
-        Person person = personRepository.findByPhone(phone)
+        Person person = personRepository1.findByPhone(phone)
                 .orElseThrow(() -> new EntityNotFoundException("Person not found"));
 
         return mapToPersonResponse(person);
@@ -84,7 +84,7 @@ public class PersonService {
 
     @Transactional
     public List<PersonResponse> findPersonsByCountyName(String name) {
-        List<Person> persons = personRepository.findByCountyName(name);
+        List<Person> persons = personRepository1.findByCountyName(name);
 
         return persons.stream()
                 .map(this::mapToPersonResponse)
@@ -93,10 +93,10 @@ public class PersonService {
 
     @Transactional
     public void deleteById(Long Id) {
-        if (personRepository.findById(Id).isEmpty()) {
+        if (personRepository1.findById(Id).isEmpty()) {
             throw new EntityNotFoundException("Person not found");
         }
-        personRepository.deleteById(Id);
+        personRepository1.deleteById(Id);
     }
 
     private Person mapToPerson(Person person, PersonRequest personRequest) {
@@ -110,7 +110,7 @@ public class PersonService {
         person.setDateOfBirth(personRequest.dateOfBirth());
         person.setCounty(county);
 
-        return personRepository.save(person);
+        return personRepository1.save(person);
     }
 
     private PersonResponse mapToPersonResponse(Person person) {

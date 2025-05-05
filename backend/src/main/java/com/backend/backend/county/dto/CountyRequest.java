@@ -16,6 +16,6 @@ public record CountyRequest(
         String name,
 
         @NotBlank(message = "County code is required")
-        @Min(message = "County code must be a positive number", value = 001)
+        @Min(message = "County code must be a positive number", value = 1)
         int code
 ) {}

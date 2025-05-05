@@ -2,7 +2,6 @@ package com.backend.backend.county;
 
 import com.backend.backend.county.dto.CountyRequest;
 import com.backend.backend.county.dto.CountyResponse;
-import com.backend.backend.person.dto.PersonResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

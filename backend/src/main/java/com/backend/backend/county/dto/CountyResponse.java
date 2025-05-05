@@ -1,9 +1,5 @@
 package com.backend.backend.county.dto;
 
-import com.backend.backend.person.Person;
-
-import java.util.List;
-
 /**
  * Immutable record class
  * Separates internal model representation from outgoing data
