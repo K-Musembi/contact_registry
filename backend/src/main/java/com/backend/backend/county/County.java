@@ -30,7 +30,7 @@ public class County {
     private String name;
 
     @Column(name = "code", nullable = false, length = 50)
-    private String code;
+    private int code;
 
     // One county can have many persons
     @OneToMany(mappedBy = "county", cascade = CascadeType.ALL)
