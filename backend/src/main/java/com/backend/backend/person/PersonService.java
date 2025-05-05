@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Business logic for Person entity
  * Defines logic for incoming requests and outgoing responses through the controller
@@ -45,6 +47,15 @@ public class PersonService {
 
         Person createdPerson = mapToPerson(person, personRequest);
         return mapToPersonResponse(createdPerson);
+    }
+
+    @Transactional
+    public List<PersonResponse> findAllPersons() {
+        List<Person> persons = personRepository.findAll();
+
+        return persons.stream()
+                .map(this::mapToPersonResponse)
+                .toList();
     }
 
     @Transactional

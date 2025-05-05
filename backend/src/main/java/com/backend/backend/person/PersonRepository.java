@@ -15,8 +15,7 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     // Custom query methods
-    Optional<Person> findByFullName(String fullName);
     Optional<Person> findByEmail(String email);
     Optional<Person> findByPhone(String phone);
-    List<Person> findByCountyName(String countyName);
+    List<Person> findAll();
 }
