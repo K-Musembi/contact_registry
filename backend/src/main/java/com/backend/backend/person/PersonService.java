@@ -2,6 +2,7 @@ package com.backend.backend.person;
 
 import com.backend.backend.county.County;
 import com.backend.backend.county.CountyRepository;
+import com.backend.backend.person.dto.GenderStats;
 import com.backend.backend.person.dto.PersonRequest;
 import com.backend.backend.person.dto.PersonResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -96,6 +97,20 @@ public class PersonService {
         return persons.stream()
                 .map(this::mapToPersonResponse)
                 .toList();
+    }
+
+    @Transactional
+    public List<PersonResponse> findLastFiveCreatedPersons() {
+        List<Person> persons = personRepository1.findTop5ByOrderByCreatedAtDesc();
+
+        return persons.stream()
+                .map(this::mapToPersonResponse)
+                .toList();
+    }
+
+    @Transactional
+    public GenderStats findGenderStats() {
+        return personRepository1.findGenderStats();
     }
 
     @Transactional

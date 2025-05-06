@@ -1,5 +1,6 @@
 package com.backend.backend.person;
 
+import com.backend.backend.person.dto.GenderStats;
 import com.backend.backend.person.dto.PersonRequest;
 import com.backend.backend.person.dto.PersonResponse;
 import jakarta.validation.Valid;
@@ -73,6 +74,20 @@ public class PersonController {
         PersonResponse responseObject = personService.findByPhone(phone);
 
         return ResponseEntity.ok(responseObject);
+    }
+
+    @GetMapping("/five-recent")
+    public ResponseEntity<List<PersonResponse>> getFiveRecentPersons() {
+        List<PersonResponse> responseObject = personService.findLastFiveCreatedPersons();
+
+        return ResponseEntity.ok().body(responseObject);
+    }
+
+    @GetMapping("/gender-stats")
+    public ResponseEntity<GenderStats> getGenderStats() {
+        GenderStats responseObject = personService.findGenderStats();
+
+        return ResponseEntity.ok().body(responseObject);
     }
 
     @PostMapping
