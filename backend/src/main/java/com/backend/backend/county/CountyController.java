@@ -54,6 +54,13 @@ public class CountyController {
         return ResponseEntity.ok(responseObject);
     }
 
+    @GetMapping("/top-counties")
+    public ResponseEntity<List<CountyResponse>> getTopFiveCounties() {
+        List<CountyResponse> responseObject = countyService.findTopFiveCounties();
+
+        return ResponseEntity.ok(responseObject);
+    }
+
     @PostMapping
     public ResponseEntity<CountyResponse> createCounty(
             @Valid @RequestBody CountyRequest countyRequest) {

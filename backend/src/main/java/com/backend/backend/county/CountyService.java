@@ -84,6 +84,14 @@ public class CountyService {
     }
 
     @Transactional
+    public List<CountyResponse> findTopFiveCounties() {
+        List<County> counties = countyRepository.findTop5ByPersonCount();
+        return counties.stream()
+                .map(this::mapToCountyResponse)
+                .toList();
+    }
+
+    @Transactional
     public void deleteById(Long id) {
         if (countyRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException("County not found");
