@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { API_BASE_URL } from '../config';
+import API_BASE_URL from '../config';
 // import { getToken } from '../utils/auth';
-// import { getUser } from '../utils/auth';
 
 export const getGenderStats = async () => {
   const response = await axios.get(`${API_BASE_URL}/persons/gender-stats`);
@@ -20,6 +19,11 @@ export const getRecentContacts = async () => {
 
 export const addContact = async (contactData) => {
   const response = await axios.post(`${API_BASE_URL}/persons`, contactData);
+  return response.data;
+};
+
+export const addCounty = async (countyData) => {
+  const response = await axios.post(`${API_BASE_URL}/counties`, countyData);
   return response.data;
 };
 

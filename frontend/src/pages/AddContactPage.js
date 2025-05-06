@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addContact, getAllCounties } from '../services/contactService';
+import { addContact, getAllCounties } from '../services/apiContactService';
 
 function AddContactPage() {
   const [formData, setFormData] = useState({
@@ -38,7 +38,6 @@ function AddContactPage() {
       await addContact(formData);
       setSuccessMessage('Contact added successfully!');
       setFormData({ name: '', email: '', phone: '', gender: '', county: '' });
-      // Optionally navigate away after a delay
       setTimeout(() => navigate('/'), 2000);
     } catch (err) {
       console.error("Failed to add contact:", err);

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ContactTable from '../components/ContactTable';
-import { getContactsByCounty, getContactsByStatePdf, getAllCounties } from '../services/contactService';
+import { getContactsByCounty, getAllCounties } from '../services/apiContactService';
 
 function ContactsReportPage() {
   const [selectedCounty, setSelectedCounty] = useState('');
   const [allCounties, setAllCounties] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPrinting, setIsPrinting] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -42,27 +41,15 @@ function ContactsReportPage() {
     }
   };
 
-  const handlePrintReport = async () => {
-    if (!selectedCounty || contacts.length === 0) {
+  const handlePrintReport = () => {
+    if (contacts.length === 0) {
       setError('No contacts to print.');
       return;
     }
     setError('');
-    setIsPrinting(true);
-    try {
-      const pdfBlob = await getContactsByStatePdf(selectedCounty);
-      const fileURL = URL.createObjectURL(pdfBlob);
-      window.open(fileURL); // Opens the PDF in a new tab, browser handles print
-      // Optional: revoke object URL after some time
-      setTimeout(() => URL.revokeObjectURL(fileURL), 10000);
-    } catch (err) {
-      console.error("Failed to generate PDF report:", err);
-      setError('Failed to generate PDF. Please check if the backend service is running or try again.');
-    } finally {
-      setIsPrinting(false);
-    }
+    window.print();
   };
-  
+
   const reportTableColumns = [
     { header: 'Name', accessor: 'name' },
     { header: 'Email', accessor: 'email' },
@@ -90,10 +77,10 @@ function ContactsReportPage() {
           <button 
             onClick={handlePrintReport} 
             className="button button-secondary" 
-            disabled={isPrinting || contacts.length === 0}
+            disabled={contacts.length === 0}
             style={{marginLeft: '10px'}}
           >
-            {isPrinting ? 'Generating PDF...' : 'Print Report (PDF)'}
+            Print Report
           </button>
         </div>
         {error && <p className="error" style={{marginTop: '10px'}}>{error}</p>}

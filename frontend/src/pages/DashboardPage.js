@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GenderChart from '../components/charts/GenderChart';
 import CountyChart from '../components/charts/CountyChart';
 import ContactTable from '../components/ContactTable';
-import { getGenderStats, getTopCounties, getRecentContacts } from '../services/contactService';
+import { getGenderStats, getTopCounties, getRecentContacts } from '../services/apiContactService';
 
 function DashboardPage() {
   const [genderData, setGenderData] = useState([]);
