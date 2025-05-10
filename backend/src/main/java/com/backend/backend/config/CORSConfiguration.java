@@ -16,7 +16,7 @@ public class CORSConfiguration {
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**") // all endpoints
                         .allowedOrigins("http://localhost:3000", "https://example.com")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)
                         .maxAge(3600);
