@@ -1,5 +1,5 @@
 import axios from 'axios';
-import API_BASE_URL from '../config';
+const API_BASE_URL = 'http://localhost:8080/api/v1';
 // import { getToken } from '../utils/auth';
 
 export const getGenderStats = async () => {
@@ -18,12 +18,29 @@ export const getRecentContacts = async () => {
 };
 
 export const addContact = async (contactData) => {
-  const response = await axios.post(`${API_BASE_URL}/persons`, contactData);
+  const contactDataJson = {
+    name: contactData.name,
+    email: contactData.email,
+    phone: contactData.phone,
+    gender: contactData.gender,
+    county: contactData.county,
+  };
+
+  const response = await axios.post(`${API_BASE_URL}/persons`, contactDataJson, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return response.data;
 };
 
-export const addCounty = async (countyData) => {
-  const response = await axios.post(`${API_BASE_URL}/counties`, countyData);
+export const addCounty = async (countyName, countyCode) => {
+  const countyData = {name: countyName, code: countyCode};
+  const response = await axios.post(`${API_BASE_URL}/counties`, countyData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return response.data;
 };
 
@@ -31,7 +48,6 @@ export const getContactsByCounty = async (countyName) => {
   const response = await axios.get(`${API_BASE_URL}/persons/${countyName}`);
   return response.data;
 };
-
 
 export const getAllCounties = async () => {
   const response = await axios.get(`${API_BASE_URL}/counties`);

@@ -15,7 +15,6 @@ public record CountyRequest(
         @Size(min = 3, max = 50, message = "County name must be between 3 and 50 characters")
         String name,
 
-        @NotBlank(message = "County code is required")
         @Min(message = "County code must be a positive number", value = 1)
         int code
 ) {}
