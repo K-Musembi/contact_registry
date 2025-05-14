@@ -1,16 +1,13 @@
 package com.backend.backend.person.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
-
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
 
 /**
  * Immutable record class
  * Separates internal model representation with data accessed externally through API
  * Uses Hibernate validator dependency for validation
+ * Note: use '@NotNull' for date and integer types, use '@NotBlank' for string types
  */
 public record PersonRequest(
         @NotBlank(message = "Full name is required")
@@ -29,9 +26,9 @@ public record PersonRequest(
         @Size(min = 3, max = 10, message = "Gender must be between 3 and 50 characters")
         String gender,
 
-        @NotBlank(message = "Date of birth is required")
+        @NotNull(message = "Date of birth is required")
         @Past(message = "Date of birth must be in the past")
-        LocalDateTime dateOfBirth,
+        LocalDate dateOfBirth,
 
         @NotBlank(message = "County name is required")
         @Size(min = 3, max = 50, message = "County must be between 3 and 50 characters")

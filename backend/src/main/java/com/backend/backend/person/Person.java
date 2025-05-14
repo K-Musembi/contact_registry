@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -38,8 +39,8 @@ public class Person {
     @Column(name = "gender", nullable = false, length = 50)
     private String gender;
 
-    @Column(name = "dateOfBirth", nullable = false, length = 50)
-    private LocalDateTime dateOfBirth;
+    @Column(name = "date_of_birth", nullable = false, length = 50)
+    private LocalDate dateOfBirth;
 
     // Many persons can belong to one county
     @ManyToOne(fetch = FetchType.LAZY)
