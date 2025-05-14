@@ -68,7 +68,7 @@ function ContactsReportPage() {
             <label htmlFor="stateSelect">Select County</label>
             <select id="stateSelect" value={selectedCounty} onChange={handleStateChange}>
               <option value="">-- Select a County --</option>
-              {allCounties.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+              {allCounties.map(county => <option key={county.id} value={county.name}>{county.name}</option>)}
             </select>
           </div>
           <button onClick={handleSearch} className="button" disabled={isLoading || !selectedCounty}>

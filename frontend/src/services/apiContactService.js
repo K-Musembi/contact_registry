@@ -19,11 +19,12 @@ export const getRecentContacts = async () => {
 
 export const addContact = async (contactData) => {
   const contactDataJson = {
-    name: contactData.name,
+    fullName: contactData.name,
     email: contactData.email,
     phone: contactData.phone,
+    dateOfBirth: contactData.dateOfBirth,
     gender: contactData.gender,
-    county: contactData.county,
+    countyName: contactData.county,
   };
 
   const response = await axios.post(`${API_BASE_URL}/persons`, contactDataJson, {

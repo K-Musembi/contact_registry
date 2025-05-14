@@ -8,6 +8,7 @@ function AddContactPage() {
     email: '',
     phone: '',
     gender: '',
+    dateOfBirth: '',
     county: '',
   });
   const [availableCounties, setAvailableCounties] = useState([]);
@@ -27,8 +28,8 @@ function AddContactPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone || !formData.gender || !formData.county) {
-      setError('Name, Email, Phone, Gender and County are required.');
+    if (!formData.name || !formData.email || !formData.phone || !formData.gender || !formData.dateOfBirth || !formData.county) {
+      setError('Name, Email, Phone, Gender, Date of Birth and County are required.');
       return;
     }
     setError('');
@@ -37,7 +38,7 @@ function AddContactPage() {
     try {
       await addContact(formData);
       setSuccessMessage('Contact added successfully!');
-      setFormData({ name: '', email: '', phone: '', gender: '', county: '' });
+      setFormData({ name: '', email: '', phone: '', gender: '', dateOfBirth: '', county: '' });
       setTimeout(() => navigate('/'), 2000);
     } catch (err) {
       console.error("Failed to add contact:", err);
@@ -74,6 +75,10 @@ function AddContactPage() {
             <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
           </div>
           <div className="form-group">
+            <label htmlFor="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
             <label htmlFor="gender">Gender</label>
             <select id="gender" name="gender" value={formData.gender} onChange={handleChange} required>
                 {genderOptions.map(g => <option key={g.value} value={g.value}>{g.label}</option>)}
@@ -83,7 +88,7 @@ function AddContactPage() {
             <label htmlFor="county">County</label>
             <select id="county" name="county" value={formData.county} onChange={handleChange} required>
               <option value="">Select County</option>
-              {availableCounties.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+              {availableCounties.map(county => <option key={county.id} value={county.name}>{county.name}</option>)}
             </select>
           </div>
           <button type="submit" className="button" disabled={isSubmitting}>

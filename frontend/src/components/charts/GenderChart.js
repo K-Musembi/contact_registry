@@ -20,7 +20,7 @@ const GenderChart = ({ data }) => {
           nameKey="name"
           label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
         >
-          {data.map((entry, index) => (
+          {Object.entries(data).map(([key, entry], index) => (  // Object.entries to map over a non-array item
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
