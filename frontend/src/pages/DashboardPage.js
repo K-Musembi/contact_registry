@@ -21,8 +21,13 @@ function DashboardPage() {
           getTopCounties(),
           getRecentContacts()
         ]);
+
+        const transformedCountyData = countyRes.map(county => ({
+          name: county.name,
+          value: county.personCount
+        }));
         setGenderData(genderRes);
-        setCountyData(countyRes);
+        setCountyData(transformedCountyData);
         setRecentContacts(recentRes);
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);

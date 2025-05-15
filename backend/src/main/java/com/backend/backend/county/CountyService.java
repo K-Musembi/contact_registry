@@ -104,7 +104,7 @@ public class CountyService {
         return new CountyResponse(
                 county.getId(),
                 county.getName(),
-                county.getCode()
+                county.getPersons().size()
         );
     }
 }

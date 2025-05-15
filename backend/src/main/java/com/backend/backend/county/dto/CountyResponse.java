@@ -8,5 +8,5 @@ package com.backend.backend.county.dto;
 public record CountyResponse(
         Long id,
         String name,
-        int code
+        int personCount
 ) {}

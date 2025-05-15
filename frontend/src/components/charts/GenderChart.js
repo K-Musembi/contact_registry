@@ -12,7 +12,7 @@ const GenderChart = ({ data }) => {
     const chartDataArray = [
       { name: 'Male', value: data.maleCount || 0 },
       { name: 'Female', value: data.femaleCount || 0 },
-      { name: 'Not Specified', value: data.notSpecified || 0 },
+      { name: 'Not Specified', value: data.notSpecifiedCount || 0 },
 
     ]
     return chartDataArray.filter(entry => entry.value > 0);
