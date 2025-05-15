@@ -51,11 +51,12 @@ function ContactsReportPage() {
   };
 
   const reportTableColumns = [
-    { header: 'Name', accessor: 'name' },
+    { header: 'Name', accessor: 'fullName' },
     { header: 'Email', accessor: 'email' },
     { header: 'Phone', accessor: 'phone' },
+    { header: 'D.O.B', accessor: 'dateOfBirth' },
     { header: 'Gender', accessor: 'gender' },
-    { header: 'County', accessor: 'county' },
+    { header: 'County', accessor: 'countyName' },
   ];
 
 

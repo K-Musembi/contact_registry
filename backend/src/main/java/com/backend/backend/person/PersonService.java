@@ -110,7 +110,18 @@ public class PersonService {
 
     @Transactional
     public GenderStats findGenderStats() {
-        return personRepository1.findGenderStats();
+        List<Person> persons = personRepository1.findAll();
+        long maleCount = 0; long femaleCount = 0; long notSpecifiedCount = 0;
+
+        for (Person person : persons) {
+            switch (person.getGender()) {
+                case "Male" -> maleCount++;
+                case "Female" -> femaleCount++;
+                case "Not Specified" -> notSpecifiedCount++;
+            }
+        }
+        return new GenderStats(maleCount, femaleCount, notSpecifiedCount);
+        // return personRepository1.findGenderStats();
     }
 
     @Transactional

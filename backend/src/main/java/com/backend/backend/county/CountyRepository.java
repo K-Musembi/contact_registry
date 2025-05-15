@@ -23,6 +23,6 @@ public interface CountyRepository extends JpaRepository<County, Long> {
      * Retrieve top five counties by contact details count
      * @return List of counties
      */
-    @Query("SELECT c FROM County c LEFT JOIN c.persons p GROUP BY c ORDER BY COUNT(p) DESC")
+    @Query("SELECT c FROM County c LEFT JOIN c.persons p GROUP BY c ORDER BY COUNT(p) DESC LIMIT 5")
     List<County> findTop5ByPersonCount();
 }

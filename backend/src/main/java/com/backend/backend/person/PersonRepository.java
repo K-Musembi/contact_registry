@@ -32,9 +32,9 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
      * @return GenderStats object
      */
     @Query("SELECT new com.backend.backend.person.dto.GenderStats(" +
-            "COUNT(p.id), " +
             "SUM(CASE WHEN LOWER(p.gender) = 'male' THEN 1 ELSE 0 END), " +
-            "SUM(CASE WHEN LOWER(p.gender) = 'female' THEN 1 ELSE 0 END)" +
+            "SUM(CASE WHEN LOWER(p.gender) = 'female' THEN 1 ELSE 0 END), " +
+            "SUM(CASE WHEN LOWER(p.gender) = 'not specified' THEN 1 ELSE 0 END) " +
             ") FROM Person p")
     GenderStats findGenderStats();
 }
