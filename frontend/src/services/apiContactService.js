@@ -2,6 +2,22 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:8080/api/v1';
 // import { getToken } from '../utils/auth';
 
+export const signUpUser = async (userDetails) => {
+  const response = await axios.post(`${API_BASE_URL}/users`, userDetails);
+  return response.data;
+}
+
+export const loginUser = async (userDetails) => {
+  const response = await axios.post(`${API_BASE_URL}/users/login`, userDetails);
+  return response.data;
+}
+
+export const updateUser = async (userDetails) => {
+  const response = await axios.get(`${API_BASE_URL}/users/${userDetails.username}`);
+  const newResponse = await axios.put(`${API_BASE_URL}/users/${response.data.id}`, userDetails);
+  return newResponse.data;
+}
+
 export const getGenderStats = async () => {
   const response = await axios.get(`${API_BASE_URL}/persons/gender-stats`);
   return response.data;
