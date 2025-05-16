@@ -54,6 +54,21 @@ public class UserController {
     }
 
     /**
+     * Logs in a user
+     * @param username String
+     * @param password String
+     * @return ResponseEntity object
+     */
+    @PostMapping("/login")
+    public ResponseEntity<UserResponse> loginUser(
+            @RequestParam String username,
+            @RequestParam String password) {
+        UserResponse responseObject = userService.loginUser(username, password);
+
+        return ResponseEntity.ok().body(responseObject);
+    }
+
+    /**
      * Finds all users
      * @return ResponseEntity object containing list of users
      */
