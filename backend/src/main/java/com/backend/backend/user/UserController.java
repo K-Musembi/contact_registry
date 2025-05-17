@@ -27,18 +27,6 @@ public class UserController {
     }
 
     /**
-     * Creates a new user
-     * @param userRequest object
-     * @return ResponseEntity object
-     */
-    @PostMapping
-    public ResponseEntity<UserResponse> createNewUser(@Valid @RequestBody UserRequest userRequest) {
-        UserResponse responseObject = userService.createUser(userRequest);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseObject);
-    }
-
-    /**
      * Updates an existing user
      * @param id Long
      * @param userRequest object
@@ -51,21 +39,6 @@ public class UserController {
         UserResponse responseObject = userService.updateUser(id, userRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseObject);
-    }
-
-    /**
-     * Logs in a user
-     * @param username String
-     * @param password String
-     * @return ResponseEntity object
-     */
-    @PostMapping("/login")
-    public ResponseEntity<UserResponse> loginUser(
-            @RequestParam String username,
-            @RequestParam String password) {
-        UserResponse responseObject = userService.loginUser(username, password);
-
-        return ResponseEntity.ok().body(responseObject);
     }
 
     /**

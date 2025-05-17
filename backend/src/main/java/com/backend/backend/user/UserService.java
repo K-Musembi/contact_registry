@@ -5,8 +5,6 @@ import com.backend.backend.user.dto.UserResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,39 +14,16 @@ import java.util.List;
  * Defines business logic for creating and retrieving data
  * PasswordEncoder for pass word hashing defined in config file
  *
- * @see com.backend.backend.config.SecurityConfig
  * @see com.backend.backend.user.UserRepository
  */
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    /**
-     * Creates a new user
-     * @param userRequest object
-     * @return UserResponse object
-     */
-    @Transactional
-    public UserResponse createUser(UserRequest userRequest) {
-        if (userRepository.existsByUsername(userRequest.username())) {
-            throw new DataIntegrityViolationException("Username already exists");
-        }
-
-        User user = new User();
-        user.setUsername(userRequest.username());
-        user.setPassword(passwordEncoder.encode(userRequest.password()));
-        user.setCategory(userRequest.category());
-
-        User createdUser = userRepository.save(user);
-        return mapToUserResponse(createdUser);
     }
 
     /**
@@ -62,29 +37,10 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("Username not found"));
 
         user.setUsername(userRequest.username());
-        user.setPassword(passwordEncoder.encode(userRequest.password()));
-        user.setCategory(userRequest.category());
+        user.setPassword(userRequest.password());
 
         User updatedUser = userRepository.save(user);
         return mapToUserResponse(updatedUser);
-    }
-
-    /**
-     * Logs in a user
-     * @param username String
-     * @param password String
-     * @return UserResponse object
-     */
-    @Transactional
-    public UserResponse loginUser(String username, String password) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("Username does not exist"));
-
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("Wrong password");
-        }
-
-        return mapToUserResponse(user);
     }
 
     /**

@@ -1,18 +1,13 @@
-package com.backend.backend.user.dto;
+package com.backend.backend.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-/**
- * API request Data Transfer Object
- * @param username
- * @param password
- */
-public record UserRequest(
+public record AuthRequest(
 
-        @NotBlank(message = "Full name is required")
-        @Size(min = 3, max = 255, message = "Full name must be between 3 and 255 characters")
+        @NotBlank(message = "Username is required")
+        @Size(min = 3, max = 255, message = "Username must be between 3 and 255 characters")
         String username,
 
         @NotBlank(message = "Password is required")
