@@ -1,11 +1,12 @@
-package com.backend.backend.auth;
+package com.backend.backend.user.auth;
 
 import com.backend.backend.config.security.jwt.JWTService;
 import com.backend.backend.user.User;
 import com.backend.backend.user.UserRepository;
-import com.backend.backend.auth.dto.AuthRequest;
-import com.backend.backend.auth.dto.AuthResponse;
+import com.backend.backend.user.auth.dto.AuthRequest;
+import com.backend.backend.user.auth.dto.AuthResponse;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,6 +38,7 @@ public class AuthService {
      * @param request AuthRequest DTO
      * @return AuthResponse DTO
      */
+    @Transactional
     public AuthResponse registerUser(AuthRequest request) {
         if (userRepository.existsByUsername(request.username())) {
             throw new IllegalArgumentException("Username already exists");
@@ -57,6 +59,7 @@ public class AuthService {
      * @param request AuthRequest DTO
      * @return AuthResponse DTO
      */
+    @Transactional
     public AuthResponse authenticateUser(AuthRequest request) {
         try {
             authenticationManager.authenticate(

@@ -1,5 +1,6 @@
 package com.backend.backend.config.security.jwt;
 
+import com.backend.backend.user.auth.AuthService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,7 +21,7 @@ import java.util.function.Function;
  * Defines logic of interacting with io.jsonwebtoken library
  * Can be reused by different auth services in the app
  * Promotes Single Responsibility Principle
- * @see com.backend.backend.auth.AuthService
+ * @see AuthService
  */
 @Service
 public class JWTService {
@@ -28,7 +29,7 @@ public class JWTService {
     @Value("${jwt.secret}")  // Make sure to define this in your application.properties
     private String secretKey;
 
-    @Value("${jwt.expiration}") // Token expiration time in milliseconds
+    @Value("${jwt.expiration}")
     private long jwtExpiration;
 
 

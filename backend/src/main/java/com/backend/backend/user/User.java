@@ -1,5 +1,6 @@
 package com.backend.backend.user;
 
+import com.backend.backend.user.auth.AuthService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.util.List;
  * User entity / model
  * Implements UserDetails interface for JWT authentication
  * Must implement getAuthorities() abstract method
- * @see com.backend.backend.auth.AuthService
+ * @see AuthService
  */
 @Entity
 @Table(name = "users")

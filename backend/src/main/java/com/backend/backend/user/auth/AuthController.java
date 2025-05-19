@@ -1,7 +1,7 @@
-package com.backend.backend.auth;
+package com.backend.backend.user.auth;
 
-import com.backend.backend.auth.dto.AuthRequest;
-import com.backend.backend.auth.dto.AuthResponse;
+import com.backend.backend.user.auth.dto.AuthRequest;
+import com.backend.backend.user.auth.dto.AuthResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * HTTP endpoints for registering new users and authenticating existing users
- * @see com.backend.backend.auth.AuthService
+ * @see AuthService
  */
 @RestController
 @RequestMapping("/api/v1/auth")
