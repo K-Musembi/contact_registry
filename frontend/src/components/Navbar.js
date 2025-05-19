@@ -12,7 +12,7 @@ function Navbar() {
   return (
     <nav>
       <Link to="/">Dashboard</Link>
-      <Link to="/signup">Sign In</Link>
+      <Link to="/signup">Admin</Link>
       {loggedIn && <Link to="/add-contact">Add Contact</Link>}
       {loggedIn && <Link to="/add-county">Add County</Link>}
       {loggedIn && <Link to="/logout">Logout</Link>}

@@ -60,11 +60,11 @@ function LoginPage() {
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <input id="username" name="username" value={formData.username} onChange={handleChange} required />
+            <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" value={formData.password} onChange={handleChange} required />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
           </div>
           <button type="submit" className="button" disabled={isSubmitting}>
             {isSubmitting ? 'Logging in...' : 'Login'}
@@ -77,11 +77,11 @@ function LoginPage() {
           <form onSubmit={handleChangePassword} style={{marginTop: 20}}>
             <div className="form-group">
               <label htmlFor="cp-username">Username</label>
-              <input id="cp-username" name="username" value={changePasswordData.username} onChange={handleChangePasswordInput} required />
+              <input type="text" id="cp-username" name="username" value={changePasswordData.username} onChange={handleChangePasswordInput} required />
             </div>
             <div className="form-group">
               <label htmlFor="cp-password">New Password</label>
-              <input id="cp-password" name="password" type="password" value={changePasswordData.password} onChange={handleChangePasswordInput} required />
+              <input type="password" id="cp-password" name="password" value={changePasswordData.password} onChange={handleChangePasswordInput} required />
             </div>
             <button type="submit" className="button">Update Password</button>
             {changePasswordMsg && <p style={{marginTop: 10}}>{changePasswordMsg}</p>}

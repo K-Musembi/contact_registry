@@ -39,18 +39,18 @@ function SignUpPage() {
 
   return (
     <div className="container">
-      <h1 className="page-header">Sign Up</h1>
+      <h1 className="page-header">Admin</h1>
       <div className="form-container">
         {error && <p className="error">{error}</p>}
         {successMessage && <p style={{border: '1px solid green', color: 'green', padding: '10px', marginBottom: '10px'}}>{successMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
-            <input id="username" name="username" value={formData.username} onChange={handleChange} required />
+            <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" value={formData.password} onChange={handleChange} required />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
           </div>
           <button type="submit" className="button" disabled={isSubmitting}>
             {isSubmitting ? 'Signing Up...' : 'Sign Up'}

@@ -64,6 +64,7 @@ h1, h2, h3 {
 .form-group input[type="tel"],
 .form-group input[type="date"],
 .form-group input[type="number"],
+.form-group input[type="password"],
 .form-group select {
   width: calc(100% - 30px); /* Adjust for padding and border */
   padding: 10px;

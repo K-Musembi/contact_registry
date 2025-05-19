@@ -3,12 +3,20 @@ const API_BASE_URL = 'http://localhost:8080/api/v1';
 // import { getToken } from '../utils/auth';
 
 export const signUpUser = async (userDetails) => {
-  const response = await axios.post(`${API_BASE_URL}/users`, userDetails);
+  const userDataJson = {
+    username: userDetails.username,
+    password: userDetails.password
+  }
+  const response = await axios.post(`${API_BASE_URL}/auth/signup`, userDataJson);
   return response.data;
 }
 
 export const loginUser = async (userDetails) => {
-  const response = await axios.post(`${API_BASE_URL}/users/login`, userDetails);
+  const userDataJson = {
+    username: userDetails.username,
+    password: userDetails.password
+  }
+  const response = await axios.post(`${API_BASE_URL}/auth/login`, userDataJson);
   return response.data;
 }
 
@@ -62,7 +70,7 @@ export const addCounty = async (countyName, countyCode) => {
 };
 
 export const getContactsByCounty = async (countyName) => {
-  const response = await axios.get(`${API_BASE_URL}/persons/${countyName}`);
+  const response = await axios.get(`${API_BASE_URL}/persons/county/${countyName}`);
   return response.data;
 };
 
