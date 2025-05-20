@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,14 +44,19 @@ public class SecurityConfig {
      * @param authenticationProvider AuthenticationProvider object, to authenticate users
      * @return SecurityFilterChain
      * @throws Exception Exception
+     * @see com.backend.backend.config.security.CORSConfiguration
+     * @see com.backend.backend.config.security.jwt.JWTFilter
      */
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http, OncePerRequestFilter jwtFilter, AuthenticationProvider authenticationProvider) throws Exception {
         http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/api/auth/**",
+                        req
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // allow CORS preflight requests
+                        .requestMatchers("/api/v1/auth/**",
                                         "/api/v1/persons",
                                         "/api/v1/persons/{id}",
                                         "/api/v1/persons/email/{email}",

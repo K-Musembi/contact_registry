@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import LogoutPage from './pages/LogoutPage';
 import DashboardPage from './pages/DashboardPage';
 import AddContactPage from './pages/AddContactPage';
 import AddCountyPage from './pages/AddCountyPage';
@@ -28,7 +29,7 @@ const App = () => {
           <Route index element={<DashboardPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignUpPage />} />
-          <Route path='logout' element={<LoginPage />} />
+          <Route path='logout' element={<LogoutPage />} />
           <Route path="add-contact" element={<AddContactPage />} />
           <Route path="add-county" element={<AddCountyPage />} />
           <Route path="contacts-report" element={<ContactsReportPage />} />

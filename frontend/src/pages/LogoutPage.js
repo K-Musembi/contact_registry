@@ -1,26 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function LogoutPage() {
+  const [confirm, setConfirm] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Remove user info from localStorage
-    localStorage.removeItem('user');
-    // Optionally clear all localStorage: localStorage.clear();
-    // Redirect to login after a short delay
-    const timer = setTimeout(() => {
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('user'); // optional: remove user info
+    setConfirm(true);
+    setTimeout(() => {
       navigate('/login');
     }, 1200);
-    return () => clearTimeout(timer);
-  }, [navigate]);
+  };
 
   return (
     <div className="container">
-      <h1 className="page-header">Logging Out</h1>
-      <p style={{ textAlign: 'center', fontSize: '1.2em', marginTop: '30px' }}>
-        You have been logged out. Redirecting to login...
-      </p>
+      <h1 className="page-header">Logout</h1>
+      {!confirm ? (
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <p style={{ fontSize: '1.2em', marginBottom: '30px' }}>
+            Do you want to logout?
+          </p>
+          <button className="button" onClick={handleLogout}>
+            Yes, Logout
+          </button>
+        </div>
+      ) : (
+        <p style={{ textAlign: 'center', fontSize: '1.2em', marginTop: '30px' }}>
+          You have been logged out. Redirecting to login...
+        </p>
+      )}
     </div>
   );
 }

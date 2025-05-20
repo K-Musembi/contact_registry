@@ -10,7 +10,15 @@ function ContactsReportPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getAllCounties().then(setAllCounties);
+    const fetchCounties = async () => {
+      try {
+        const counties = await getAllCounties();
+        setAllCounties(counties);
+      } catch (err) {
+        setError('Failed to load counties. Please try again later.');
+      }
+    };
+    fetchCounties();
   }, []);
 
   const handleStateChange = (e) => {
@@ -63,7 +71,7 @@ function ContactsReportPage() {
   return (
     <div className="container">
       <h1 className="page-header">Contacts Report by County</h1>
-      <div className="form-container" style={{maxWidth: 'none', marginBottom: '20px'}}>
+      <div className="form-container" style={{maxWidth: '600px', marginBottom: '20px'}}>
         <div className="form-group" style={{ display: 'flex', gap: '10px', alignItems: 'flex-end' }}>
           <div style={{flexGrow: 1}}>
             <label htmlFor="stateSelect">Select County</label>

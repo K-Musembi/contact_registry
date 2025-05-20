@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { loginUser, updateUser } from '../services/apiContactService';
+import { loginUser } from '../services/apiContactService';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
@@ -7,9 +7,6 @@ function LoginPage() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showChangePassword, setShowChangePassword] = useState(false);
-  const [changePasswordData, setChangePasswordData] = useState({ username: '', password: '' });
-  const [changePasswordMsg, setChangePasswordMsg] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,29 +22,16 @@ function LoginPage() {
     try {
       const res = await loginUser(formData);
       setSuccessMessage(`Welcome ${res.username}`);
+      // Save JWT token
+      if (res.token) {
+        localStorage.setItem('jwtToken', res.token);
+      }
       setTimeout(() => navigate('/'), 1500);
-      localStorage.setItem('user', JSON.stringify(res));  // to track logged-in user
+      localStorage.setItem('user', JSON.stringify(res));  // optional: keep user info
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // Change password handlers
-  const handleChangePasswordInput = (e) => {
-    const { name, value } = e.target;
-    setChangePasswordData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-    setChangePasswordMsg('');
-    try {
-      await updateUser(changePasswordData);
-      setChangePasswordMsg('Password updated successfully!');
-    } catch (err) {
-      setChangePasswordMsg(err.response?.data?.message || 'Failed to update password.');
     }
   };
 
@@ -70,23 +54,10 @@ function LoginPage() {
             {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <button className="button button-secondary" style={{marginTop: 10}} onClick={() => setShowChangePassword(v => !v)}>
-          {showChangePassword ? 'Hide Change Password' : 'Change Password'}
-        </button>
-        {showChangePassword && (
-          <form onSubmit={handleChangePassword} style={{marginTop: 20}}>
-            <div className="form-group">
-              <label htmlFor="cp-username">Username</label>
-              <input type="text" id="cp-username" name="username" value={changePasswordData.username} onChange={handleChangePasswordInput} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="cp-password">New Password</label>
-              <input type="password" id="cp-password" name="password" value={changePasswordData.password} onChange={handleChangePasswordInput} required />
-            </div>
-            <button type="submit" className="button">Update Password</button>
-            {changePasswordMsg && <p style={{marginTop: 10}}>{changePasswordMsg}</p>}
-          </form>
-        )}
+        <div style={{ textAlign: 'center', marginTop: 15 }}>
+          <span>Forgot Password? </span>
+          <span style={{ color: '#aaa', fontStyle: 'italic' }}>Reset Password (coming soon)</span>
+        </div>
       </div>
     </div>
   );

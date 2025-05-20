@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const isLoggedIn = () => {
-  const user = localStorage.getItem('user');
-  return user ? true : false;
+  const jwtToken = localStorage.getItem('jwtToken');
+  return jwtToken ? true : false;
 }
 
 function Navbar() {
@@ -12,11 +12,11 @@ function Navbar() {
   return (
     <nav>
       <Link to="/">Dashboard</Link>
-      <Link to="/signup">Admin</Link>
+      {!loggedIn && <Link to="/signup">Admin</Link>}
+      <Link to="/contacts-report">Contacts Report</Link>
       {loggedIn && <Link to="/add-contact">Add Contact</Link>}
       {loggedIn && <Link to="/add-county">Add County</Link>}
       {loggedIn && <Link to="/logout">Logout</Link>}
-      <Link to="/contacts-report">Contacts Report</Link>
     </nav>
   );
 }

@@ -18,7 +18,15 @@ function AddContactPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllCounties().then(setAvailableCounties);
+    const fetchCounties = async () => {
+      try {
+        const counties = await getAllCounties();
+        setAvailableCounties(counties);
+      } catch (err) {
+        setError('Failed to load counties. Please try again later.');
+      }
+    };
+    fetchCounties();
   }, []);
 
   const handleChange = (e) => {
