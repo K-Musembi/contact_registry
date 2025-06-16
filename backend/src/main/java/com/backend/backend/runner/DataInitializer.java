@@ -35,25 +35,24 @@ public class DataInitializer implements CommandLineRunner {
             countyRepository.saveAll(countiesData);
         }
 
-        County Nairobi = countyRepository.findByName("Nairobi")
-                .orElseThrow(() -> new RuntimeException("County Nairobi not found"));
-        County Machakos = countyRepository.findByName("Machakos")
-                .orElseThrow(() -> new RuntimeException("County Machakos not found"));
-        County Makueni = countyRepository.findByName("Makueni")
-                .orElseThrow(() -> new RuntimeException("County Makueni not found"));
-        County Mombasa = countyRepository.findByName("Mombasa")
-                .orElseThrow(() -> new RuntimeException("County Mombasa not found"));
-        County Laikipia = countyRepository.findByName("Laikipia")
-                .orElseThrow(() -> new RuntimeException("County Laikipia not found"));
-        County Nakuru = countyRepository.findByName("Nakuru")
-                .orElseThrow(() -> new RuntimeException("County Nakuru not found"));
-        County Nyamira = countyRepository.findByName("Nyamira")
-                .orElseThrow(() -> new RuntimeException("County Nyamira not found"));
-        County Busia = countyRepository.findByName("Busia")
-                .orElseThrow(() -> new RuntimeException("County Busia not found"));
-
-
         if (personRepository.count() == 0) {
+            County Nairobi = countyRepository.findByName("Nairobi")
+                    .orElseThrow(() -> new RuntimeException("County Nairobi not found"));
+            County Machakos = countyRepository.findByName("Machakos")
+                    .orElseThrow(() -> new RuntimeException("County Machakos not found"));
+            County Makueni = countyRepository.findByName("Makueni")
+                    .orElseThrow(() -> new RuntimeException("County Makueni not found"));
+            County Mombasa = countyRepository.findByName("Mombasa")
+                    .orElseThrow(() -> new RuntimeException("County Mombasa not found"));
+            County Laikipia = countyRepository.findByName("Laikipia")
+                    .orElseThrow(() -> new RuntimeException("County Laikipia not found"));
+            County Nakuru = countyRepository.findByName("Nakuru")
+                    .orElseThrow(() -> new RuntimeException("County Nakuru not found"));
+            County Nyamira = countyRepository.findByName("Nyamira")
+                    .orElseThrow(() -> new RuntimeException("County Nyamira not found"));
+            County Busia = countyRepository.findByName("Busia")
+                    .orElseThrow(() -> new RuntimeException("County Busia not found"));
+
             List<Person> persons = List.of(
                     new Person(null, "Jane M.", "janem@mail.com", "0700000001", "female", LocalDate.of(2000, 1, 19), Machakos, null, null),
                     new Person(null, "Alice H.", "aliceh@mail.com", "0700000090", "female", LocalDate.of(1998, 10, 29), Machakos, null, null),

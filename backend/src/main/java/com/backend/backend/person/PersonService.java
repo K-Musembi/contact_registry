@@ -115,9 +115,9 @@ public class PersonService {
 
         for (Person person : persons) {
             switch (person.getGender()) {
-                case "Male" -> maleCount++;
-                case "Female" -> femaleCount++;
-                case "Not Specified" -> notSpecifiedCount++;
+                case "male" -> maleCount++;
+                case "female" -> femaleCount++;
+                case "not specified" -> notSpecifiedCount++;
             }
         }
         return new GenderStats(maleCount, femaleCount, notSpecifiedCount);
