@@ -58,9 +58,9 @@ function AddContactPage() {
 
   const genderOptions = [
     { value: '', label: 'Select Gender' },
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' },
-    { value: 'NotSpecified', label: 'Not Specified' },
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'not specified', label: 'Not Specified' },
   ];
 
   return (
